@@ -34,7 +34,10 @@ load.remote.file <- function(server,service='vdsdata',root,file){
   if(length(tmp)==0){
     tmp <- tempfile('remotedata')
     uri <- paste(server,service,root,sep='/')
-    system2('curl',paste('--retry 4 ',uri,file,sep=''),stdout=tmp,stderr=FALSE)
+    ## try wrapping filename in quotes
+    uri <- paste('"',uri,file,'"',sep='')
+    print(paste('fetching',uri))
+    system2('curl',paste('--retry 4 ',uri,sep=''),stdout=tmp,stderr=FALSE)
     print(map.temp.files(file,tmp))
   }
   load.result <-  load(file=tmp)
