@@ -29,7 +29,7 @@ unmap.temp.files <- function(file){
 }
 
 ## go get the remote files, and track their temporary location
-load.remote.file <- function(server,service,root,file){
+load.remote.file <- function(server,service='vdsdata',root,file){
   tmp <- map.temp.files(file)
   if(length(tmp)==0){
     tmp <- tempfile('remotedata')
