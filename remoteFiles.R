@@ -58,10 +58,13 @@ get.filenames <- function(server='http://localhost:3000'
   uri = paste(uri,paste('pattern=',pattern,sep=''),sep='?')
   print(uri)
   reader = basicTextGatherer()
+  h = getCurlHandle()
   curlPerform(
               url = uri
               ,writefunction = reader$update
+              ,curl=h
               )
+  if(getCurlInfo(h)$response.code != 200) return (NULL)
   unlist(fromJSON(reader$value()))
 }
 
