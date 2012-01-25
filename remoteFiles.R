@@ -29,9 +29,9 @@ unmap.temp.files <- function(file){
 }
 
 ## go get the remote files, and track their temporary location
-fetch.remote.file <- function(server,service='vdsdata',root,file){
+fetch.remote.file <- function(server,service='vdsdata',root,file,refetch=FALSE){
   tmp <- map.temp.files(file)
-  if(length(tmp)==0){
+  if(refetch || length(tmp)==0){
     tmp <- tempfile('remotedata')
     uri <- paste(server,service,root,sep='/')
     ## try wrapping filename in quotes
@@ -67,6 +67,11 @@ get.filenames <- function(server='http://localhost:3000'
   unlist(fromJSON(reader$value()))
 }
 
+get.wim.file <- function(file,server='http://lysithia.its.uci.edu:3000'){
+  fetch.remote.file(server,service='wimdata',root='',file=file)
+}
+
+
 ## save an R object to a file and put to the remote server
 put.remote.file <- function(server='http://lysithia.its.uci.edu:3000',service='wimdata',path,o){
   tmp <- tempfile('localdata',fileext='.RData')
@@ -77,3 +82,4 @@ put.remote.file <- function(server='http://lysithia.its.uci.edu:3000',service='w
   print(opts)
   system2('curl',opts)
 }
+
