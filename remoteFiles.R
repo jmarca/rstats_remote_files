@@ -48,7 +48,6 @@ load.remote.file <- function(server,service='vdsdata',root,file){
   df
 }
 
-
 ## send a request to the file serving machine for a list of files matching pattern
 get.filenames <- function(server='http://localhost:3000'
                           ,service='vdsdata'
@@ -68,3 +67,13 @@ get.filenames <- function(server='http://localhost:3000'
   unlist(fromJSON(reader$value()))
 }
 
+## save an R object to a file and put to the remote server
+put.remote.file <- function(server='http://lysithia.its.uci.edu:3000',service='wimdata',path,o){
+  tmp <- tempfile('localdata',fileext='.RData')
+  save(o,file=tmp,compress='xz')
+  uri <- paste(server,service,path,sep='/')
+  print(uri)
+  opts <- paste(' -T ', tmp,' -X PUT ',uri,sep='')
+  print(opts)
+  system2('curl',opts)
+}
