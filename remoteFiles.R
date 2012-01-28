@@ -30,16 +30,16 @@ unmap.temp.files <- function(file){
 
 ## go get the remote files, and track their temporary location
 fetch.remote.file <- function(server,service='vdsdata',root,file,refetch=FALSE){
-  tmp <- map.temp.files(file)
-  if(refetch || length(tmp)==0){
+#  tmp <- map.temp.files(file)
+#  if(refetch || length(tmp)==0){
     tmp <- tempfile('remotedata')
     uri <- paste(server,service,root,sep='/')
     ## try wrapping filename in quotes
     uri <- paste('"',uri,file,'"',sep='')
     print(paste('fetching',uri))
     system2('curl',paste('--retry 4 ',uri,sep=''),stdout=tmp,stderr=FALSE)
-    print(map.temp.files(file,tmp))
-  }
+#    print(map.temp.files(file,tmp))
+#  }
   tmp
 }
 load.remote.file <- function(server,service='vdsdata',root,file){
