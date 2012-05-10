@@ -39,7 +39,7 @@ fetch.remote.file <- function(server,service='vdsdata',root,file,refetch=FALSE){
     ## try wrapping filename in quotes
     uri <- paste('"',uri,URLencode(file),'"',sep='')
     print(paste('fetching',uri))
-    system2('curl',paste('--retry 2 ',uri,sep=''),stdout=tmp,stderr=FALSE)
+    system2('curl',paste('--retry 2 ',uri,sep=''),stdout=tmp,stderr="/tmp/curl.fetch.err")
 ##   print(map.temp.files(file,tmp))
 ## }
   tmp
