@@ -45,17 +45,16 @@ fetch.remote.file <- function(server,service='vdsdata',root,file,refetch=FALSE){
 ##   print(map.temp.files(file,tmp))
 ## }
     result='failure'
-    r <- try(result <- load(file=tmp))
+    r <- try(result <-  load(tmp, .GlobalEnv))
     if(class(r) == "try-error") {
       return(r)
     }
     unlink(tmp)
     result
 }
-load.remote.file <- function(server,service='vdsdata',root,file){
-  tmp <- fetch.remote.file(server,service,root,file)
-  load.result <-  load(file=tmp)
-  df
+load.remote.file <- function(server,service='vdsdata',root,file,deprecated=TRUE){
+  // deprecated
+  fetch.remote.file(server,service,root,file)
 }
 
 ## send a request to the file serving machine for a list of files matching pattern
@@ -77,7 +76,7 @@ get.filenames <- function(server='http://localhost:3000'
   unlist(fromJSON(reader$value()))
 }
 
-get.wim.file <- function(file,server='http://lysithia.its.uci.edu:3000'){
+get.wim.file <- function(file,server){
   fetch.remote.file(server,service='wimdata',root='',file=file)
 }
 
