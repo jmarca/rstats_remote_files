@@ -53,7 +53,7 @@ fetch.remote.file <- function(server,service='vdsdata',root,file,refetch=FALSE){
     result
 }
 load.remote.file <- function(server,service='vdsdata',root,file,deprecated=TRUE){
-  // deprecated
+  ## deprecated
   fetch.remote.file(server,service,root,file)
 }
 
@@ -82,7 +82,7 @@ get.wim.file <- function(file,server){
 
 
 ## save an R object to a file and put to the remote server
-put.remote.file <- function(server='http://lysithia.its.uci.edu:3000',service='wimdata',path,o){
+put.remote.file <- function(server='http://calvad.ctmlabs.net',service='wimdata',path,o){
   tmp <- tempfile('localdata',fileext='.RData')
   save(o,file=tmp,compress='xz')
   uri <- paste(server,service,path,sep='/')
