@@ -33,6 +33,7 @@ fetch.remote.file <- function(server,service='vdsdata',root,file,refetch=FALSE){
 ##  tmp <- map.temp.files(file)
 ## if(refetch || length(tmp)==0){
     tmp <- tempfile('remotedata')
+    file.create(tmp)
     uri <- paste(server,service,root,sep='/')
 
     ## URI escape the filename
@@ -40,10 +41,16 @@ fetch.remote.file <- function(server,service='vdsdata',root,file,refetch=FALSE){
     uri <- paste('"',uri,URLencode(file),'"',sep='')
     gc()
     print(paste('fetching',uri))
-    system2('curl',paste('--retry 2 ',uri,sep=''),stdout=tmp,stderr="/tmp/curl.fetch.err")
+    system2('curl',paste('--retry 2 -s -S',uri),stdout=tmp)
 ##   print(map.temp.files(file,tmp))
 ## }
-  tmp
+    result='failure'
+    r <- try(result <- load(file=tmp))
+    if(class(r) == "try-error") {
+      return(r)
+    }
+    unlink(tmp)
+    result
 }
 load.remote.file <- function(server,service='vdsdata',root,file){
   tmp <- fetch.remote.file(server,service,root,file)
