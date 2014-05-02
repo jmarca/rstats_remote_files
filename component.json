@@ -1,6 +1,6 @@
 {
-  "name": "rstats-remote-files",
-  "repo": "jmarca/rstats-remote-files",
+  "name": "rstats_remote_files",
+  "repo": "jmarca/rstats_remote_files",
   "description": "Helper functions for accessing files from my remote file server from R",
   "version": "0.0.1",
   "keywords": ["download remote files", "R", "rstats"],
