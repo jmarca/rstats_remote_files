@@ -1,0 +1,21 @@
+{
+  "name": "rstats_remote_files",
+  "version": "0.1.0",
+  "description": "Helper functions for accessing files from R from my remote server.  Pretty much it won't work for you unless you are lucky.  Patches welcome",
+  "main": "remoteFiles.R",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "R CMD check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmarca/rstats_remote_files"
+  },
+  "keywords": [
+    "R"
+  ],
+  "author": "James E. Marca",
+  "license": "GPLv2",
+  "readmeFilename": "README.md"
+}
